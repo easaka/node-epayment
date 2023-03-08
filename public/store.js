@@ -1,3 +1,5 @@
+
+
 if (document.readyState == 'loading') {
     document.addEventListener('DOMContentLoaded', ready)
 } else {
@@ -26,13 +28,27 @@ function ready() {
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', purchaseClicked)
 }
 
+
+let stripeHandler = StripeCheckout.configure({
+    key: stripePublicKey,
+    locale: 'auto',
+    token: function(token)
+{
+
+}})
+
 function purchaseClicked() {
-    alert('Thank you for your purchase')
-    var cartItems = document.getElementsByClassName('cart-items')[0]
-    while (cartItems.hasChildNodes()) {
-        cartItems.removeChild(cartItems.firstChild)
-    }
-    updateCartTotal()
+    // alert('Thank you for your purchase')
+    // var cartItems = document.getElementsByClassName('cart-items')[0]
+    // while (cartItems.hasChildNodes()) {
+    //     cartItems.removeChild(cartItems.firstChild)
+    // }
+    // updateCartTotal()
+    var priceElement = document.getElementsByClassName('cart-total-price')[0]
+    var price = parseFloat(priceElement.innerText.replace('$', ''))*100
+    stripeHandler.open({
+        amount: price
+    })
 }
 
 function removeCartItem(event) {
