@@ -1,3 +1,4 @@
+// const { default: Stripe } = require("stripe")
 
 
 if (document.readyState == 'loading') {
@@ -29,8 +30,10 @@ function ready() {
 }
 
 
+// var stripe = Stripe(stripePublicKey)
+
 let stripeHandler = StripeCheckout.configure({
-    key: stripePublicKey,
+    key: pk_test_51MjHiACXERChOJj37Yp2afBuBoptOE2oref0yqjwqlqMPMgAbi9sbX0fgFccYlS8oUSQEneqgMHpT7QOHj3AVLKm00W7QAH6or,
     locale: 'auto',
     token: function(token)
 {
@@ -39,16 +42,18 @@ let stripeHandler = StripeCheckout.configure({
 
 function purchaseClicked() {
     // alert('Thank you for your purchase')
-    // var cartItems = document.getElementsByClassName('cart-items')[0]
-    // while (cartItems.hasChildNodes()) {
-    //     cartItems.removeChild(cartItems.firstChild)
-    // }
-    // updateCartTotal()
-    var priceElement = document.getElementsByClassName('cart-total-price')[0]
-    var price = parseFloat(priceElement.innerText.replace('$', ''))*100
-    stripeHandler.open({
-        amount: price
-    })
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild)
+        var priceElement = cartItems.getElementsByClassName('cart-price')[0]
+        var price = parseFloat(priceElement.innerText.replace('$', ''))*100
+        stripeHandler.open({
+            amount: price
+        })
+    }
+    updateCartTotal()
+    // var cartRows = cartItemContainer.getElementsByClassName('cart-row')
+
 }
 
 function removeCartItem(event) {

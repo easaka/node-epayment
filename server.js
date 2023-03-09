@@ -6,7 +6,7 @@ const express= require("express")
 const app = express()
 const stripePulicKey = process.env.STRIPE_PUBLIC_KEY
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
-console.log(stripeSecretKey,stripePulicKey);
+// console.log(stripeSecretKey,stripePulicKey);
 app.set('view engine', 'ejs')
 
 const fs = require('fs')
